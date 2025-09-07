@@ -1,0 +1,60 @@
+-----zomato data anlyst by using sql
+drop table customer,customer,orders,delivery,rider,restaurant;
+create table customer (customer_id int  primary key,customer_name varchar(25),customer_city varchar(25),reg_date date );
+
+copy customer
+from 'D:\SQL Projects\Zomato Project\customers.csv'
+delimiter ','
+csv header;
+select * from customer;
+
+drop table restaurant;
+
+create table restaurant (restaurant_id int  primary key,restaurant_name varchar(25),restaurant_city varchar(25),opening_hours time );
+
+copy restaurant
+from 'D:\SQL Projects\Zomato Project\restaurant.csv'
+delimiter ','
+csv header;
+select * from restaurant;
+
+drop table orders;
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    restaurant_id INT,
+    order_item VARCHAR(25),
+    order_date DATE,
+    order_time TIME,
+    order_status VARCHAR(25),
+    total_amount FLOAT,
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    CONSTRAINT fk_restaurant FOREIGN KEY (restaurant_id) REFERENCES restaurant(restaurant_id)
+);
+
+TRUNCATE  table orders,delivery;
+copy orders
+from 'D:\SQL Projects\Zomato Project\orders.csv'
+delimiter ','
+csv header;
+select * from orders;
+drop table delivery;
+
+create table delivery(delivery_id int primary key,order_id int,delivery_status varchar(30),delivery_time time,rider_id int ,
+					 
+					     CONSTRAINT fk_orders FOREIGN KEY (order_id) REFERENCES orders(order_id),
+					     CONSTRAINT fk_rider FOREIGN KEY (rider_id) REFERENCES rider(rider_id));
+copy delivery
+from 'D:\SQL Projects\Zomato Project\delivery.csv'
+delimiter ','
+csv header;
+select * from delivery;
+
+create table rider(rider_id int primary key, rider_name varchar(20),sign_up_date date );
+
+copy rider
+from 'D:\SQL Projects\Zomato Project\riders.csv'
+delimiter ','
+csv header;
+select * from rider;
