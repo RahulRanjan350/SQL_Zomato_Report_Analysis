@@ -112,7 +112,7 @@ AND customer.customer_id NOT IN (
 ORDER BY customer.customer_id;
 
 ---9.calculate the rate comparision---done
---calculate and compare the order cancellation rate for each restaurant between the current year and previous year---pending
+--calculate and compare the order cancellation rate for each restaurant between the current year and previous year---Done
 
 
 WITH cancelled_orders AS (
